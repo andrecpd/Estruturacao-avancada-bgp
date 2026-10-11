@@ -1,8 +1,8 @@
-# Contribuindo
+# Como contribuir
 
-- Abra uma issue descrevendo o problema ou melhoria.
-- Identifique fabricante, plataforma e versão para mudanças de configuração.
-- Não envie credenciais, endereços reais sensíveis ou configurações de clientes.
-- Inclua comandos de verificação e resultado esperado.
-- Teste o laboratório antes de enviar pull request.
-- Prefira commits pequenos e descritivos.
+1. Abra uma issue descrevendo o objetivo, plataforma e versão.
+2. Crie branch com nome descritivo.
+3. Atualize teoria, topologia, configuração, testes e rollback juntos.
+4. Não inclua credenciais, IPs reais de gestão, configurações de clientes ou dados confidenciais.
+5. Revise se comandos e sintaxe correspondem à plataforma/versão citada.
+6. Abra pull request com evidências de laboratório e limitações conhecidas.

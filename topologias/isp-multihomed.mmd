@@ -1,0 +1,11 @@
+flowchart TB
+  U1[Transit A\nAS65001] ---|eBGP| E1[Edge-1\nAS65010]
+  U2[Transit B\nAS65002] ---|eBGP| E2[Edge-2\nAS65010]
+  E1 --- CORE[Core / IGP + iBGP]
+  E2 --- CORE
+  CORE --- RR1[RR1]
+  CORE --- RR2[RR2]
+  E1 --- IX[IXP / Route Server]
+  E2 --- IX
+  C1[Cliente A\nAS65101] --- E1
+  C2[Cliente B\nAS65102] --- E2
