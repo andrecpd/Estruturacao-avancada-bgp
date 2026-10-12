@@ -64,3 +64,17 @@ flowchart LR
 
 ## 6. Como gerar imagens
 Para exportar diagramas como SVG/PNG, use Mermaid CLI ou um editor Mermaid aprovado pela sua organização. Mantenha também o `.md`/`.mmd` versionado para que o desenho continue editável.
+
+
+## Topologias visuais individuais dos laboratórios
+
+Os diagramas SVG abaixo estão versionados no repositório e podem ser incorporados aos guias Markdown. Para editar, altere o arquivo SVG correspondente.
+
+- [LAB-01 — eBGP básico](lab-01.svg)
+- [LAB-02 — LOCAL_PREF](lab-02.svg)
+- [LAB-03 — Prefix filtering](lab-03.svg)
+- [LAB-04 — Prevenção de route leak](lab-04.svg)
+- [LAB-05 — BGP Communities](lab-05.svg)
+- [LAB-06 — Troubleshooting](lab-06.svg)
+
+Os diagramas representam a topologia lógica para estudo. Antes de montar o laboratório no EVE-NG/GNS3, confirme a quantidade de interfaces disponíveis na imagem de roteador e replique o endereçamento descrito em cada guia.
