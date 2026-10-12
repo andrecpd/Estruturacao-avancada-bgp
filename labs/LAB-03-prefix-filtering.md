@@ -1,4 +1,11 @@
 # LAB-03 — Filtragem de prefixos
+## Topologia visual
+![Topologia LAB-03](../topologias/lab-03.svg)
+
+## O que este laboratório ensina
+O provedor recebe anúncios de um cliente e deve aceitar apenas os prefixos que o cliente está autorizado a originar. A prefix-list define o conjunto permitido; a route-map aplica essa lista ao vizinho BGP. O comportamento de negação implícita bloqueia anúncios que não correspondem às permissões.
+
+**Por que isso importa em um ISP:** filtros evitam vazamento de rotas, anúncios acidentais de terceiros e prefixos mais específicos não autorizados. Teste tanto um prefixo permitido quanto um prefixo indevido e registre a evidência na tabela BGP e nos anúncios recebidos.
 
 **Objetivo:** aceitar somente prefixos autorizados e testar prefixos indevidos.
 
