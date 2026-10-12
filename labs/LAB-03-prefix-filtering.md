@@ -17,7 +17,11 @@ interface Loopback0
 router bgp 65010
  bgp log-neighbor-changes
  neighbor 192.0.2.2 remote-as 65020
- network 198.51.100.0 mask 255.255.255.0
+ !
+ address-family ipv4
+  network 198.51.100.0 mask 255.255.255.0
+  neighbor 192.0.2.2 activate
+ exit-address-family
 ```
 
 ## R2 — AS65020 (filtra o que recebe do cliente)
@@ -34,7 +38,11 @@ route-map CUSTOMER-IN permit 10
 router bgp 65020
  bgp log-neighbor-changes
  neighbor 192.0.2.1 remote-as 65010
- neighbor 192.0.2.1 route-map CUSTOMER-IN in
+ !
+ address-family ipv4
+  neighbor 192.0.2.1 activate
+  neighbor 192.0.2.1 route-map CUSTOMER-IN in
+ exit-address-family
 ```
 
 A ausência de uma sequência permissiva final na prefix-list significa negar os demais prefixos. A route-map também tem negação implícita no final. Para testar um prefixo /25, crie uma rota de teste em R1 e anuncie-a temporariamente; o filtro deve bloqueá-la.
