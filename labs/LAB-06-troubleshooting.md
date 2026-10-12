@@ -1,4 +1,11 @@
 # LAB-06 — Diagnóstico em camadas
+## Topologia visual
+![Topologia LAB-06](../topologias/lab-06.svg)
+
+## O que este laboratório ensina
+Este laboratório usa falhas intencionais para praticar uma investigação por camadas: interface e endereçamento, conectividade IP, sessão BGP, recebimento do prefixo, seleção do melhor caminho e instalação na RIB. Cada hipótese deve ser confirmada por comandos e logs antes de alterar a configuração.
+
+**Por que isso importa em um ISP:** uma abordagem estruturada reduz MTTR e evita mudanças amplas, como limpar todas as sessões BGP sem necessidade. Registre sintoma, evidência, causa raiz, correção e plano de rollback para cada cenário.
 
 **Objetivo:** identificar a camada responsável por uma falha BGP.
 
