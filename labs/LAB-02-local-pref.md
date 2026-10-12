@@ -34,7 +34,12 @@ router bgp 65010
  bgp log-neighbor-changes
  neighbor 192.0.2.1 remote-as 65001
  neighbor 192.0.2.5 remote-as 65002
- neighbor 192.0.2.1 route-map PREFER-U1 in
+ !
+ address-family ipv4
+  neighbor 192.0.2.1 activate
+  neighbor 192.0.2.5 activate
+  neighbor 192.0.2.1 route-map PREFER-U1 in
+ exit-address-family
 ```
 
 ### U1 — AS65001
@@ -49,7 +54,11 @@ interface Loopback0
 router bgp 65001
  bgp log-neighbor-changes
  neighbor 192.0.2.2 remote-as 65010
- network 203.0.113.0 mask 255.255.255.0
+ !
+ address-family ipv4
+  network 203.0.113.0 mask 255.255.255.0
+  neighbor 192.0.2.2 activate
+ exit-address-family
 ```
 
 ### U2 — AS65002
@@ -64,7 +73,11 @@ interface Loopback0
 router bgp 65002
  bgp log-neighbor-changes
  neighbor 192.0.2.6 remote-as 65010
- network 203.0.113.0 mask 255.255.255.0
+ !
+ address-family ipv4
+  network 203.0.113.0 mask 255.255.255.0
+  neighbor 192.0.2.6 activate
+ exit-address-family
 ```
 
 **Nota:** use endereços de loopback distintos em U1/U2 se ambos estiverem conectados ao mesmo domínio L2; neste cenário são roteadores separados. Se a plataforma não permitir o mesmo prefixo originado simultaneamente sem conflito no desenho, use uma interface Null0 para originar a rota de teste: `ip route 203.0.113.0 255.255.255.0 Null0`.
