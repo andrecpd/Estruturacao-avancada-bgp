@@ -1,4 +1,11 @@
 # LAB-01 — eBGP básico e anúncio de prefixos
+## Topologia visual
+![Topologia LAB-01](../topologias/lab-01.svg)
+
+## O que este laboratório ensina
+Este é o ponto de partida para entender o BGP como protocolo de roteamento entre sistemas autônomos. Você vai separar três conceitos: conectividade IP entre vizinhos, estabelecimento da sessão TCP/179 e troca de rotas BGP. Uma sessão Established não garante, por si só, que os prefixos esperados foram anunciados ou instalados na tabela de roteamento.
+
+**Por que isso importa em um ISP:** a mesma sequência de validação ajuda a diagnosticar novas sessões com trânsito, clientes e peers. O comando `network` origina um prefixo somente quando existe uma rota correspondente na RIB; por isso a Loopback0 cria o prefixo de teste.
 
 **Objetivo:** formar uma sessão eBGP e acompanhar um prefixo desde a origem até a tabela BGP do vizinho.
 
