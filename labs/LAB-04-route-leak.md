@@ -1,4 +1,11 @@
 # LAB-04 — Prevenção de route leak
+## Topologia visual
+![Topologia LAB-04](../topologias/lab-04.svg)
+
+## O que este laboratório ensina
+O EDGE tem dois upstreams, mas não deve oferecer trânsito entre eles por acidente. Uma política de exportação explícita permite anunciar somente os prefixos próprios aprovados. A mesma route-map pode ser aplicada aos dois vizinhos, desde que a lista represente corretamente o que o ISP tem autorização para anunciar.
+
+**Por que isso importa em um ISP:** um route leak pode causar instabilidade, tráfego inesperado, violação de contrato ou impacto em outras redes. Em produção, mantenha políticas distintas quando os contratos ou os prefixos autorizados forem diferentes e considere mecanismos adicionais como BGP Roles/OTC quando suportados.
 
 **Objetivo:** impedir que rotas aprendidas de um upstream sejam exportadas para outro upstream sem autorização.
 
