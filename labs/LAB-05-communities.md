@@ -17,7 +17,11 @@ interface Loopback0
 router bgp 65101
  bgp log-neighbor-changes
  neighbor 192.0.2.2 remote-as 65010
- network 198.51.100.0 mask 255.255.255.0
+ !
+ address-family ipv4
+  network 198.51.100.0 mask 255.255.255.0
+  neighbor 192.0.2.2 activate
+ exit-address-family
 ```
 
 ## EDGE — AS65010
@@ -46,11 +50,16 @@ route-map EXPORT-CUSTOMER permit 100
 router bgp 65010
  bgp log-neighbor-changes
  neighbor 192.0.2.1 remote-as 65101
- neighbor 192.0.2.1 route-map CUSTOMER-IN in
- neighbor 192.0.2.1 send-community
  neighbor 192.0.2.6 remote-as 65001
- neighbor 192.0.2.6 route-map EXPORT-CUSTOMER out
- network 198.51.100.0 mask 255.255.255.0
+ !
+ address-family ipv4
+  network 198.51.100.0 mask 255.255.255.0
+  neighbor 192.0.2.1 activate
+  neighbor 192.0.2.1 route-map CUSTOMER-IN in
+  neighbor 192.0.2.1 send-community
+  neighbor 192.0.2.6 activate
+  neighbor 192.0.2.6 route-map EXPORT-CUSTOMER out
+ exit-address-family
 ```
 
 ## UPSTREAM — AS65001
@@ -62,6 +71,10 @@ interface GigabitEthernet0/0
 router bgp 65001
  bgp log-neighbor-changes
  neighbor 192.0.2.5 remote-as 65010
+ !
+ address-family ipv4
+  neighbor 192.0.2.5 activate
+ exit-address-family
 ```
 
 **Importante:** o exemplo demonstra a mecânica de community e prepend em laboratório. Em produção, valide o contrato e as políticas do provedor antes de enviar communities ou alterar AS_PATH. Evite aceitar do cliente communities reservadas à operação interna: sobrescreva tags não confiáveis no ingresso, como neste exemplo.
