@@ -1,4 +1,8 @@
 # LAB-04 — Prevenção de route leak
+
+> **Trilha progressiva:** Intermediário · 4/6  
+> **Pré-requisito:** LAB-01 a LAB-03. É necessário entender anúncios, prefix-lists e route-maps.  
+> **Objetivo de aprendizagem:** Controlar anúncios de saída para dois upstreams e impedir que rotas de terceiros sejam exportadas indevidamente.
 ## Topologia visual
 ![Topologia LAB-04](../topologias/lab-04.svg)
 
