@@ -1,4 +1,8 @@
 # LAB-01 — eBGP básico e anúncio de prefixos
+
+> **Trilha progressiva:** Básico · 1/6  
+> **Pré-requisito:** Nenhum. Comece por este laboratório.  
+> **Objetivo de aprendizagem:** Compreender ASN, vizinhança eBGP, anúncio de prefixos e verificação da sessão.
 ## Topologia visual
 ![Topologia LAB-01](../topologias/lab-01.svg)
 
