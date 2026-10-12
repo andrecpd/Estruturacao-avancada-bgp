@@ -2,17 +2,80 @@
 
 **Objetivo:** marcar rotas no ingresso e aplicar ação no egresso.
 
-## Modelo didático de tags
-Use valores reservados ao laboratório e documente-os; não reutilize communities de provedores reais sem autorização. Exemplo interno: `65010:100` = cliente; `65010:200` = preferência alta; `65010:300` = solicitar prepend no upstream de teste.
+## Topologia
+CUST (AS65101) — EDGE (AS65010) — UPSTREAM (AS65001). Prefixo do cliente: 198.51.100.0/24. EDGE marca o prefixo com community interna `65010:100`; a policy de saída identifica essa tag.
 
-## Tarefas
-1. Marque a rota do cliente com uma community.
-2. Confirme a tag na tabela BGP.
-3. Faça a route-map de saída casar a tag e aplicar a ação definida.
-4. Compare anúncio sem tag e com tag.
-5. Verifique se a tag deve ser propagada ou removida na fronteira.
+## CUST — AS65101
+```cisco
+hostname CUST
+interface GigabitEthernet0/0
+ ip address 192.0.2.1 255.255.255.252
+ no shutdown
+interface Loopback0
+ ip address 198.51.100.1 255.255.255.0
+!
+router bgp 65101
+ bgp log-neighbor-changes
+ neighbor 192.0.2.2 remote-as 65010
+ network 198.51.100.0 mask 255.255.255.0
+```
+
+## EDGE — AS65010
+```cisco
+hostname EDGE
+interface GigabitEthernet0/0
+ description CUSTOMER-AS65101
+ ip address 192.0.2.2 255.255.255.252
+ no shutdown
+interface GigabitEthernet0/1
+ description UPSTREAM-AS65001
+ ip address 192.0.2.5 255.255.255.252
+ no shutdown
+!
+ip prefix-list CUSTOMER-PREFIX seq 10 permit 198.51.100.0/24
+route-map CUSTOMER-IN permit 10
+ match ip address prefix-list CUSTOMER-PREFIX
+ set community 65010:100 additive
+!
+ip community-list standard CUSTOMER-TAG permit 65010:100
+route-map EXPORT-CUSTOMER permit 10
+ match community CUSTOMER-TAG
+ set as-path prepend 65010 65010
+route-map EXPORT-CUSTOMER permit 100
+!
+router bgp 65010
+ bgp log-neighbor-changes
+ neighbor 192.0.2.1 remote-as 65101
+ neighbor 192.0.2.1 route-map CUSTOMER-IN in
+ neighbor 192.0.2.1 send-community
+ neighbor 192.0.2.6 remote-as 65001
+ neighbor 192.0.2.6 route-map EXPORT-CUSTOMER out
+ network 198.51.100.0 mask 255.255.255.0
+```
+
+## UPSTREAM — AS65001
+```cisco
+hostname UPSTREAM
+interface GigabitEthernet0/0
+ ip address 192.0.2.6 255.255.255.252
+ no shutdown
+router bgp 65001
+ bgp log-neighbor-changes
+ neighbor 192.0.2.5 remote-as 65010
+```
+
+**Importante:** o exemplo demonstra a mecânica de community e prepend em laboratório. Em produção, valide o contrato e as políticas do provedor antes de enviar communities ou alterar AS_PATH. Evite aceitar do cliente communities reservadas à operação interna: sobrescreva tags não confiáveis no ingresso, como neste exemplo.
+
+## Validação
+```cisco
+show ip bgp
+show ip bgp 198.51.100.0
+show ip community-list
+show route-map
+show ip bgp neighbors 192.0.2.6 advertised-routes
+```
 
 ## Perguntas
 - Qual a diferença entre standard e large communities?
-- Por que `additive` pode ser importante?
+- Por que `additive` preserva tags já existentes?
 - Como impedir que o cliente injete uma community reservada para uso interno?
