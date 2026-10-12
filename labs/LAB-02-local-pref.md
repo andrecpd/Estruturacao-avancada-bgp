@@ -1,4 +1,11 @@
 # LAB-02 — Preferência de saída com LOCAL_PREF
+## Topologia visual
+![Topologia LAB-02](../topologias/lab-02.svg)
+
+## O que este laboratório ensina
+O cenário simula um ISP conectado a dois provedores que anunciam o mesmo destino. O atributo LOCAL_PREF permite que o AS escolha qual rota prefere para encaminhar tráfego de saída. O valor é avaliado dentro do AS e, em condições comparáveis, o maior LOCAL_PREF vence antes de atributos como AS_PATH.
+
+**Por que isso importa em um ISP:** LOCAL_PREF pode priorizar um trânsito por custo, capacidade, contrato ou engenharia de tráfego. Ele não controla diretamente por qual caminho a Internet envia tráfego de volta; para isso, podem ser relevantes políticas de anúncio, communities e AS-path prepend. O exercício também mostra que a política deve ser aplicada no ingresso da rota em R.
 
 **Objetivo:** escolher um upstream para o tráfego de saída quando o mesmo prefixo é aprendido por dois caminhos.
 
