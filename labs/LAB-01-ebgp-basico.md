@@ -37,7 +37,11 @@ interface Loopback0
 router bgp 65010
  bgp log-neighbor-changes
  neighbor 192.0.2.2 remote-as 65020
- network 198.51.100.0 mask 255.255.255.0
+ !
+ address-family ipv4
+  network 198.51.100.0 mask 255.255.255.0
+  neighbor 192.0.2.2 activate
+ exit-address-family
 ```
 
 ### R2 — AS65020
@@ -55,7 +59,11 @@ interface Loopback0
 router bgp 65020
  bgp log-neighbor-changes
  neighbor 192.0.2.1 remote-as 65010
- network 203.0.113.0 mask 255.255.255.0
+ !
+ address-family ipv4
+  network 203.0.113.0 mask 255.255.255.0
+  neighbor 192.0.2.1 activate
+ exit-address-family
 ```
 
 O comando `network` anuncia somente se o prefixo exato estiver presente na tabela de roteamento. A interface Loopback0 com máscara /24 cria essa rota conectada.
