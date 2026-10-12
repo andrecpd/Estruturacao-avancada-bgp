@@ -5,9 +5,7 @@
 ## Topologia
 ```mermaid
 flowchart LR
- R1[ R1 AS65010
-192.0.2.1/30 ] ---|TCP/179 eBGP| R2[ R2 AS65020
-192.0.2.2/30 ]
+ R1[ R1 AS65010\n192.0.2.1/30 ] ---|TCP/179 eBGP| R2[ R2 AS65020\n192.0.2.2/30 ]
  R1 --- LAN1[198.51.100.0/24]
  R2 --- LAN2[203.0.113.0/24]
 ```
@@ -20,17 +18,68 @@ flowchart LR
 | R1 | Loopback0 | 198.51.100.1/24 |
 | R2 | Loopback0 | 203.0.113.1/24 |
 
+## Configurações Cisco IOS/IOS XE
+
+> Ajuste nomes de interfaces conforme o roteador virtual (IOSv/CSR1000v). Os blocos são para laboratório isolado.
+
+### R1 — AS65010
+```cisco
+hostname R1
+no ip domain-lookup
+interface GigabitEthernet0/0
+ description eBGP-to-R2-AS65020
+ ip address 192.0.2.1 255.255.255.252
+ no shutdown
+interface Loopback0
+ description PREFIX-OWNED-BY-AS65010
+ ip address 198.51.100.1 255.255.255.0
+!
+router bgp 65010
+ bgp log-neighbor-changes
+ neighbor 192.0.2.2 remote-as 65020
+ network 198.51.100.0 mask 255.255.255.0
+```
+
+### R2 — AS65020
+```cisco
+hostname R2
+no ip domain-lookup
+interface GigabitEthernet0/0
+ description eBGP-to-R1-AS65010
+ ip address 192.0.2.2 255.255.255.252
+ no shutdown
+interface Loopback0
+ description PREFIX-OWNED-BY-AS65020
+ ip address 203.0.113.1 255.255.255.0
+!
+router bgp 65020
+ bgp log-neighbor-changes
+ neighbor 192.0.2.1 remote-as 65010
+ network 203.0.113.0 mask 255.255.255.0
+```
+
+O comando `network` anuncia somente se o prefixo exato estiver presente na tabela de roteamento. A interface Loopback0 com máscara /24 cria essa rota conectada.
+
 ## Procedimento
-1. Configure interfaces e confirme ping entre 192.0.2.1 e 192.0.2.2.
-2. Configure os processos BGP com ASNs distintos.
-3. Garanta que a rota exata 198.51.100.0/24 exista em R1 antes do comando `network`.
-4. Confirme `Established` e que R2 recebe 198.51.100.0/24.
-5. Faça o teste negativo: altere temporariamente o remote-as em R2, observe a falha, restaure e confirme recuperação.
+1. Configure os dois roteadores e confirme `ping 192.0.2.2` a partir de R1.
+2. Confirme a sessão com `show ip bgp summary`.
+3. Verifique os anúncios com `show ip bgp` e `show ip route bgp`.
+4. Faça o teste negativo: altere temporariamente o `remote-as` em R2, observe a falha, restaure e confirme recuperação.
+
+## Validação
+```cisco
+show ip interface brief
+show ip bgp summary
+show ip bgp
+show ip route bgp
+show ip bgp neighbors 192.0.2.2 advertised-routes
+```
+**Esperado:** sessão Established e R2 aprendendo `198.51.100.0/24`; R1 aprendendo `203.0.113.0/24`.
 
 ## Critérios de aceitação
 - Sessão Established.
-- Prefixo aparece em `show ip bgp` no R2.
-- Causa da falha por ASN incompatível foi identificada sem limpar a sessão antes de coletar evidências.
+- Prefixos aparecem na tabela BGP do vizinho.
+- Causa da falha por ASN incompatível identificada antes de limpar a sessão.
 
 ## Limpeza
 Salve as evidências, remova a configuração BGP do lab ou restaure o snapshot.
