@@ -1,4 +1,8 @@
 # LAB-05 — Communities como interface de política
+
+> **Trilha progressiva:** Intermediário–avançado · 5/6  
+> **Pré-requisito:** LAB-01 a LAB-04. Entenda filtros de entrada/saída e route-map.  
+> **Objetivo de aprendizagem:** Usar communities como etiquetas de política e aplicar uma ação de engenharia de tráfego, incluindo AS-path prepend.
 ## Topologia visual
 ![Topologia LAB-05](../topologias/lab-05.svg)
 
