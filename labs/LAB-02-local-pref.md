@@ -1,4 +1,8 @@
 # LAB-02 — Preferência de saída com LOCAL_PREF
+
+> **Trilha progressiva:** Básico–intermediário · 2/6  
+> **Pré-requisito:** LAB-01 — eBGP básico.  
+> **Objetivo de aprendizagem:** Comparar rotas para o mesmo destino e controlar a preferência de saída usando LOCAL_PREF.
 ## Topologia visual
 ![Topologia LAB-02](../topologias/lab-02.svg)
 
