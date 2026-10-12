@@ -1,4 +1,8 @@
 # LAB-06 — Diagnóstico em camadas
+
+> **Trilha progressiva:** Avançado inicial · 6/6  
+> **Pré-requisito:** LAB-01 a LAB-05. Este é o exercício integrador; faça-o depois de compreender as políticas anteriores.  
+> **Objetivo de aprendizagem:** Diagnosticar falhas em camadas e validar conectividade, sessão, recebimento, seleção e instalação de rotas.
 ## Topologia visual
 ![Topologia LAB-06](../topologias/lab-06.svg)
 
