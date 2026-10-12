@@ -1,30 +1,21 @@
-# Catálogo de laboratórios
+# Catálogo de laboratórios BGP
 
-| Lab | Objetivo | Módulo |
-|---|---|---|
-| LAB-01 | eBGP básico e anúncio de prefixos | 01 |
-| LAB-02 | Alterar preferência com LOCAL_PREF | 02 |
-| LAB-03 | Filtragem de prefixos exatos e mais específicos | 03 |
-| LAB-04 | Política inbound/outbound com route-map | 04 |
-| LAB-05 | Communities e prepend controlado | 05–06 |
-| LAB-06 | Evitar route leak entre upstreams | 07–08 |
-| LAB-07 | Peering IXP e route server conceitual | 09 |
-| LAB-08 | iBGP com route reflectors redundantes | 10 |
-| LAB-09 | Clientes com políticas independentes | 11 |
-| LAB-10 | Dual-stack IPv4/IPv6 | 12 |
-| LAB-11 | Isolamento de VRFs e VPNv4 conceitual | 13 |
-| LAB-12 | Política de validação RPKI e filtros | 14 |
-| LAB-13 | Falha de enlace e convergência | 15 |
-| LAB-14 | Diagnóstico de sessão, filtro e next-hop | 16 |
-| LAB-15 | Versionamento, revisão e rollback | 17 |
-| LAB-16 | Projeto integrado ISP | 18 |
+Este diretório contém os seis laboratórios com configuração Cisco IOS/IOS XE disponível atualmente. Cada guia inclui objetivo, topologia visual, explicação do conceito, configurações por roteador, tarefas e comandos de validação.
 
-Cada laboratório deve conter: objetivo, desenho, inventário de nós, endereçamento, pré-requisitos, configuração inicial, tarefas, validação, falhas intencionais, gabarito e limpeza. Os módulos já fornecem a estrutura de cada experiência; expandir cada laboratório com a imagem de roteador escolhida.
+| Lab | Objetivo principal | Topologia | Guia |
+|---|---|---|---|
+| LAB-01 | Estabelecer eBGP e anunciar prefixos | [SVG](../topologias/lab-01.svg) | [Abrir](LAB-01-ebgp-basico.md) |
+| LAB-02 | Selecionar saída com LOCAL_PREF | [SVG](../topologias/lab-02.svg) | [Abrir](LAB-02-local-pref.md) |
+| LAB-03 | Filtrar prefixos autorizados | [SVG](../topologias/lab-03.svg) | [Abrir](LAB-03-prefix-filtering.md) |
+| LAB-04 | Evitar route leak entre upstreams | [SVG](../topologias/lab-04.svg) | [Abrir](LAB-04-route-leak.md) |
+| LAB-05 | Aplicar communities e prepend | [SVG](../topologias/lab-05.svg) | [Abrir](LAB-05-communities.md) |
+| LAB-06 | Diagnosticar falhas BGP | [SVG](../topologias/lab-06.svg) | [Abrir](LAB-06-troubleshooting.md) |
 
-## Guias detalhados disponíveis
-- [LAB-01-ebgp-basico](LAB-01-ebgp-basico.md)
-- [LAB-02-local-pref](LAB-02-local-pref.md)
-- [LAB-03-prefix-filtering](LAB-03-prefix-filtering.md)
-- [LAB-04-route-leak](LAB-04-route-leak.md)
-- [LAB-05-communities](LAB-05-communities.md)
-- [LAB-06-troubleshooting](LAB-06-troubleshooting.md)
+## Método recomendado para cada laboratório
+1. Estude o desenho e confirme o inventário dos roteadores, ASNs e endereços.
+2. Configure interfaces e valide a conectividade IP antes de configurar BGP.
+3. Configure vizinhos e família IPv4 usando `address-family ipv4`.
+4. Valide a sessão com `show ip bgp summary`; depois confira rotas recebidas, melhor caminho e anúncios.
+5. Faça o teste negativo indicado, colete evidências e aplique rollback.
+
+> Os módulos LAB-07 a LAB-16 ainda precisam ser criados como guias individuais. Os desenhos SVG são editáveis e versionados em `topologias/`.
