@@ -1,4 +1,11 @@
 # LAB-05 — Communities como interface de política
+## Topologia visual
+![Topologia LAB-05](../topologias/lab-05.svg)
+
+## O que este laboratório ensina
+Communities são etiquetas associadas a rotas para comunicar intenção de política entre roteadores. Neste exercício, o EDGE marca uma rota do cliente com a community standard `65010:100` e usa essa marca para selecionar uma ação de saída, como AS-path prepend. O comando `send-community` controla o envio das communities ao vizinho.
+
+**Por que isso importa em um ISP:** communities permitem escalar políticas operacionais, por exemplo solicitar preferência menor, limitar propagação ou selecionar um upstream, quando há suporte e acordo entre as redes. Trate communities recebidas do cliente como entrada não confiável e aplique uma política clara de sanitização.
 
 **Objetivo:** marcar rotas no ingresso e aplicar ação no egresso.
 
