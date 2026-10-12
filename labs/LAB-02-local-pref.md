@@ -86,7 +86,7 @@ router bgp 65002
 1. Configure R, U1 e U2; confirme as duas sessões eBGP.
 2. Registre o melhor caminho antes de aplicar política.
 3. Aplique `PREFER-U1` inbound em R e reavalie o best path.
-4. Remova a política com `no neighbor 192.0.2.1 route-map PREFER-U1 in` e compare.
+4. Entre em `router bgp 65010` → `address-family ipv4`, remova a política com `no neighbor 192.0.2.1 route-map PREFER-U1 in` e compare.
 
 ## Validação
 ```cisco
