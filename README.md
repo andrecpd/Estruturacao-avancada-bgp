@@ -6,8 +6,8 @@ Curso em português para estudo intermediário/avançado de BGP, com foco em ope
 
 ## Comece aqui
 - [Índice dos 18 módulos](./modulos/README.md)
-- [Topologias e endereçamento](./topologias/README.md)
-- [Catálogo de laboratórios](./labs/README.md)
+- [Topologias e endereçamento](./topologias/README.md) — inclui seis diagramas SVG dos laboratórios
+- [Catálogo de laboratórios](./labs/README.md) — seis guias com explicações e topologias visuais
 - [Configurações Cisco IOS/IOS XE](./configuracoes/cisco-ios/)
 - [Exemplo FRRouting](./configuracoes/frr/ebgp-basico.md)
 - [Glossário](./docs/glossario.md)
