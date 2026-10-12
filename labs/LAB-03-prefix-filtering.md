@@ -1,4 +1,8 @@
 # LAB-03 — Filtragem de prefixos
+
+> **Trilha progressiva:** Intermediário · 3/6  
+> **Pré-requisito:** LAB-01 e LAB-02. Você deve conseguir estabelecer a sessão e interpretar as rotas recebidas.  
+> **Objetivo de aprendizagem:** Aplicar uma política de entrada que aceite apenas os prefixos autorizados do vizinho.
 ## Topologia visual
 ![Topologia LAB-03](../topologias/lab-03.svg)
 
